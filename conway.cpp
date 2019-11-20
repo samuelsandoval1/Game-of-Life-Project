@@ -1,6 +1,9 @@
 #include <chrono>
 #include <ctime>
 #include <curses.h>
+#include <chrono>
+#include <ctime>
+#include <curses.h>
 #include <iostream>
 #include <stdlib.h>
 #include <thread>
@@ -26,6 +29,9 @@ void PrintExitInstructions() {
   refresh();
 }
 
+// void InitialState(){
+//
+// }
 
 void PrintRow(string row_to_print, int row) {
   mvaddstr(row, 0, row_to_print.c_str());
@@ -42,12 +48,13 @@ void PrintRow(string row_to_print, int row) {
 int main(int argc, char* argv[]) {
   InitializeCurses();
   PrintExitInstructions();
-  char current_gen[ROWS][COLUMNS];
-  char next_gen[ROWS][COLUMNS];
+  int current_gen[ROWS][COLUMNS];
+  int next_gen[ROWS][COLUMNS];
+
 
   // TODO: Implement Conway's Game of Life.
   while (true) {
-    // PrintRow(row_print, rows);
+
   }
 
   endwin();
