@@ -107,19 +107,19 @@ int row_neigh(int board[ROWS][COLUMNS], int row, int column){
 
 int diag_neigh(int board[ROWS][COLUMNS], int row, int column){
   int neighbor_total = 0;
-  
-  if(board[row-1][column-1] == 1) {
+  if(board[((row-1) + 48) % 48][(column+1) % 160] == 1){
     neighbor_total += 1;
   }
-  if(board[row+1][column-1] == 1) {
+  if(board[((row-1) + 48) % 48][column-1 + 160 % 160] == 1){
     neighbor_total += 1;
   }
-  if(board[row-1][column+1] == 1) {
+  if(board[(row+1) % 48][(column+1) % 160] == 1) {
     neighbor_total += 1;
   }
-  if(board[row+1][column+1] == 1) {
+  if(board[(row+1) % 48][(column-1) + 160 % 160] == 1) {
     neighbor_total += 1;
   }
+
   return neighbor_total;
 }
 
