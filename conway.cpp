@@ -2,9 +2,6 @@
 #include <chrono>
 #include <ctime>
 #include <curses.h>
-#include <chrono>
-#include <ctime>
-#include <curses.h>
 #include <iostream>
 #include <stdlib.h>
 #include <thread>
@@ -31,12 +28,7 @@ void PrintExitInstructions() {
 void PrintRow(string row_to_print, int row) {
   mvaddstr(row, 0, row_to_print.c_str());
   refresh();
-  int neighbors = 0;
-
-
-  // Optional: Use the following line to create a short delay between each
-  // tick if you want to watch your population grow/shrink more slowly:
-  // this_thread::sleep_for(chrono::milliseconds(1));
+  this_thread::sleep_for(chrono::milliseconds(1));
 }
 
 void set_world(int current_gen[ROWS][COLUMNS]){
@@ -46,7 +38,8 @@ void set_world(int current_gen[ROWS][COLUMNS]){
     }
   }
 }
-void init_glider(int current_gen[ROWS][COLUMNS]){
+
+void init_glider(int current_gen[ROWS][COLUMNS]) {
   current_gen[23][80] = 1;
   current_gen[24][81] = 1;
   for(int col = 79; col < 82; col++) {
@@ -56,12 +49,12 @@ void init_glider(int current_gen[ROWS][COLUMNS]){
 void build_world(int current_gen[ROWS][COLUMNS]){
   for(int row = 0; row < ROWS; row++) {
     string row_string;
-    for(int col = 0; col < ROWS; col++) {
+    for(int col = 0; col < COLUMNS; col++) {
       if(current_gen[row][col] == 0) {
-        row_string+= DEAD;
+        row_string += DEAD;
       }
       else{
-        row_string +=ALIVE;
+        row_string += ALIVE;
       }
     }
   PrintRow(row_string, row);
@@ -155,7 +148,7 @@ int main(int argc, char* argv[]) {
     build_world(current_gen);
     copy_world(current_gen, next_gen);
     check_neighbors(current_gen, next_gen);
-    copy_world(current_gen, next_gen);
+    copy_world(next_gen, current_gen);
   }
 
   endwin();
