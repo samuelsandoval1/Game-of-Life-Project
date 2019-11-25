@@ -63,21 +63,10 @@ void build_world(int current_gen[ROWS][COLUMNS])  {
 
 int col_neigh(int board[ROWS][COLUMNS], int row, int column) {
   int neighbor_total = 0;
-  if(column == 159) {
-    if(board[row][0] == 1) {
-      neighbor_total += 1;
-    }
-  }
-  else if(board[row][column+1] == 1) {
+  if(board[row][(column+1) % 160] == 1) {
     neighbor_total += 1;
   }
-
-  if(column == 0) {
-    if(board[row][159] == 1){
-      neighbor_total += 1;
-    }
-  }
-  else if(board[row][column-1] == 1){
+  if(board[row][((column-1) + 160) % 160] == 1) {
     neighbor_total += 1;
   }
   return neighbor_total;
@@ -85,21 +74,10 @@ int col_neigh(int board[ROWS][COLUMNS], int row, int column) {
 
 int row_neigh(int board[ROWS][COLUMNS], int row, int column){
   int neighbor_total = 0;
-  if(row == 47) {
-    if(board[0][column] == 1) {
-      neighbor_total += 1;
-    }
-  }
-  else if(board[row+1][column] == 1) {
+  if(board[(row+1) % 48][column] == 1) {
     neighbor_total += 1;
   }
-
-  if(row == 0) {
-    if(board[47][column] == 1) {
-      neighbor_total += 1;
-    }
-  }
-  else if(board[row-1][column] == 1) {
+  if(board[((row-1) + 48) % 48][column] == 1) {
       neighbor_total += 1;
   }
   return neighbor_total;
@@ -107,16 +85,16 @@ int row_neigh(int board[ROWS][COLUMNS], int row, int column){
 
 int diag_neigh(int board[ROWS][COLUMNS], int row, int column){
   int neighbor_total = 0;
-  if(board[((row-1) + 48) % 48][(column+1) % 160] == 1){
+  if(board[((row-1) + 48) % 48][(column+1) % 160] == 1) {
     neighbor_total += 1;
   }
-  if(board[((row-1) + 48) % 48][column-1 + 160 % 160] == 1){
+  if(board[((row-1) + 48) % 48][((column-1) + 160) % 160] == 1) {
     neighbor_total += 1;
   }
   if(board[(row+1) % 48][(column+1) % 160] == 1) {
     neighbor_total += 1;
   }
-  if(board[(row+1) % 48][(column-1) + 160 % 160] == 1) {
+  if(board[(row+1) % 48][((column-1) + 160) % 160] == 1) {
     neighbor_total += 1;
   }
 
