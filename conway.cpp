@@ -12,7 +12,6 @@ const int COLUMNS = 160;
 const char ALIVE = '*';
 const char DEAD = ' ';
 
-
 void InitializeCurses() {
   initscr();
   cbreak();
