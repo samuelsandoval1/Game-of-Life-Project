@@ -46,14 +46,14 @@ void init_glider(int current_gen[ROWS][COLUMNS]) {
     current_gen[25][col] = 1;
   }
 }
-void build_world(int current_gen[ROWS][COLUMNS]){
+void build_world(int current_gen[ROWS][COLUMNS])  {
   for(int row = 0; row < ROWS; row++) {
     string row_string;
     for(int col = 0; col < COLUMNS; col++) {
       if(current_gen[row][col] == 0) {
         row_string += DEAD;
       }
-      else{
+      else {
         row_string += ALIVE;
       }
     }
@@ -61,29 +61,53 @@ void build_world(int current_gen[ROWS][COLUMNS]){
   }
 }
 
-int col_neigh(int board[ROWS][COLUMNS], int row, int column){
-  int neighbor_total;
-  if(board[row][column+1] == 1) {
+int col_neigh(int board[ROWS][COLUMNS], int row, int column) {
+  int neighbor_total = 0;
+  if(column == 159) {
+    if(board[row][0] == 1) {
+      neighbor_total += 1;
+    }
+  }
+  else if(board[row][column+1] == 1) {
     neighbor_total += 1;
   }
-  if(board[row][column-1] == 1){
+
+  if(column == 0) {
+    if(board[row][159] == 1){
+      neighbor_total += 1;
+    }
+  }
+  else if(board[row][column-1] == 1){
     neighbor_total += 1;
   }
   return neighbor_total;
 }
 
 int row_neigh(int board[ROWS][COLUMNS], int row, int column){
-  int neighbor_total;
-  if(board[row+1][column] == 1) {
+  int neighbor_total = 0;
+  if(row == 47) {
+    if(board[0][column] == 1) {
+      neighbor_total += 1;
+    }
+  }
+  else if(board[row+1][column] == 1) {
     neighbor_total += 1;
   }
-  if(board[row-1][column] == 1){
-    neighbor_total += 1;
+
+  if(row == 0) {
+    if(board[47][column] == 1) {
+      neighbor_total += 1;
+    }
+  }
+  else if(board[row-1][column] == 1) {
+      neighbor_total += 1;
   }
   return neighbor_total;
 }
+
 int diag_neigh(int board[ROWS][COLUMNS], int row, int column){
-  int neighbor_total;
+  int neighbor_total = 0;
+  
   if(board[row-1][column-1] == 1) {
     neighbor_total += 1;
   }
@@ -98,6 +122,7 @@ int diag_neigh(int board[ROWS][COLUMNS], int row, int column){
   }
   return neighbor_total;
 }
+
 void Determine_Cell_Status(int board[ROWS][COLUMNS], int neighbor_total, int row, int column) {
   if(neighbor_total < 2) {
     board[row][column] = 0;
@@ -110,27 +135,25 @@ void Determine_Cell_Status(int board[ROWS][COLUMNS], int neighbor_total, int row
   }
 }
 
-void check_neighbors(int read_board[ROWS][COLUMNS], int write[ROWS][COLUMNS]) {
-  for(int row = 0; row < ROWS; row++){
-    for(int col = 0; col < COLUMNS; col++){
-      int neighbor_total = 0;
-        neighbor_total += col_neigh(read_board, row, col);
-        neighbor_total += row_neigh(read_board, row, col);
-        neighbor_total += diag_neigh(read_board, row, col);
-        Determine_Cell_Status(read_board, neighbor_total, row, col);
-    }
-  }
-}
-
-void copy_world(int read_board[ROWS][COLUMNS], int write[ROWS][COLUMNS]) {
+void check_neighbors(int read_board[ROWS][COLUMNS], int write_board[ROWS][COLUMNS]) {
   for(int row = 0; row < ROWS; row++) {
     for(int col = 0; col < COLUMNS; col++) {
-      write[row][col] = read_board[row][col];
+      int neighbor_total = 0;
+      neighbor_total += col_neigh(read_board, row, col);
+      neighbor_total += row_neigh(read_board, row, col);
+      neighbor_total += diag_neigh(read_board, row, col);
+      Determine_Cell_Status(write_board, neighbor_total, row, col);
     }
   }
 }
 
-
+void copy_world(int read_board[ROWS][COLUMNS], int write_board[ROWS][COLUMNS]) {
+  for(int row = 0; row < ROWS; row++) {
+    for(int col = 0; col < COLUMNS; col++) {
+      write_board[row][col] = read_board[row][col];
+    }
+  }
+}
 
 
 
