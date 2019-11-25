@@ -133,8 +133,6 @@ void copy_world(int read_board[ROWS][COLUMNS], int write_board[ROWS][COLUMNS]) {
   }
 }
 
-
-
 int main(int argc, char* argv[]) {
   InitializeCurses();
   PrintExitInstructions();
